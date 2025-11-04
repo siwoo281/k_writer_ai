@@ -449,7 +449,7 @@ async function copyContent(type) {
       break;
     case 'all':
     default:
-      text = `🇰🇷 Korean:\n${dom.koOutput.value}\n\n🇬🇧 English:\n${dom.enOutput.value}\n\n💡 Brief:\n${dom.briefOutput.value}`;
+      text = `Korean:\n${dom.koOutput.value}\n\nEnglish:\n${dom.enOutput.value}\n\nBrief:\n${dom.briefOutput.value}`;
       btn = dom.copyBtn;
       break;
   }
@@ -472,7 +472,7 @@ async function copyContent(type) {
     // Visual feedback on button
     const originalHTML = btn.innerHTML;
     btn.classList.add('copied');
-    btn.innerHTML = btn.innerHTML.replace(/📋|🇰🇷|🇬🇧/, '✓');
+    btn.innerHTML = btn.innerHTML.replace(/📋/, '✓');
     
     setStatus(t('copied'), 2000, 'success');
     
