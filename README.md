@@ -1,4 +1,4 @@
-# K-Culture AI Writer 🇰🇷✨
+# K-Culture AI Writer ✨
 
 An AI-powered static web app that automatically generates **bilingual (Korean/English) social media posts** to introduce Korean culture, memes, and trends to international audiences. This project is optimized for performance, accessibility, and security, making it a production-ready Progressive Web App (PWA).
 
