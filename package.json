@@ -1,0 +1,16 @@
+{
+  "name": "k-culture-ai-writer",
+  "version": "1.0.0",
+  "description": "AI-powered bilingual post generator for Korean culture",
+  "main": "script.js",
+  "scripts": {
+    "dev": "python3 -m http.server 8000",
+    "netlify-dev": "netlify dev"
+  },
+  "keywords": ["k-culture", "ai", "openai", "korean", "bilingual"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "node-fetch": "^2.6.7"
+  }
+}

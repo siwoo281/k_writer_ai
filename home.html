@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta http-equiv="Content-Security-Policy" 
+        content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://api.openai.com;">
+  <title>K-Culture AI Writer — AI Korean Culture Content Generator</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Generate bilingual Korean-English social media posts about K-culture using AI. Choose from topics like K-pop, Korean food, memes, festivals, and traditions.">
+  <meta name="keywords" content="K-pop, Korean culture, AI content generator, bilingual posts, Korean food, memes, festivals, traditions, OpenAI">
+  <meta name="author" content="Choi Si-woo, Pai Chai University">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="K-Culture AI Writer - Generate Content">
+  <meta property="og:description" content="Create bilingual posts about Korean culture with AI">
+  <meta property="og:type" content="website">
+  
+  <!-- PWA -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#0077b6">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" as="style">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet"></noscript>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="header-content">
+        <a href="index.html" class="home-link" title="Go to Landing Page">
+          <span class="home-icon">🏠</span>
+        </a>
+        <h1>K-Culture AI Writer</h1>
+        <p class="subtitle" data-ko="한국 문화·밈·트렌드를 외국인에게 소개하는 SNS 포스트 생성기" data-en="Generate bilingual social posts about Korean culture, memes & trends">
+          한국 문화·밈·트렌드를 외국인에게 소개하는 SNS 포스트 생성기
+        </p>
+        <button id="lang-toggle" class="lang-toggle" aria-label="Toggle language">
+          <span class="lang-icon">🌐</span>
+          <span class="lang-text">EN</span>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <form id="generator-form" aria-label="Korean culture content generator form">
+        <fieldset>
+          <legend>
+            <h2 data-ko="주제 (Topic)" data-en="Topic (주제)">주제 (Topic)</h2>
+          </legend>
+          <div class="option-group" id="topic-selection" role="radiogroup" aria-labelledby="topic-heading">
+            <label class="option-label">
+              <input type="radio" name="topic" value="food" checked>
+              <span class="option-text">
+                <span class="option-emoji">🍜</span>
+                <span data-ko="Korean Food" data-en="Korean Food">Korean Food</span>
+                <small data-ko="한국 음식" data-en="한국 음식">한국 음식</small>
+              </span>
+            </label>
+            <label class="option-label">
+              <input type="radio" name="topic" value="kpop">
+              <span class="option-text">
+                <span class="option-emoji">🎵</span>
+                <span data-ko="K-pop" data-en="K-pop">K-pop</span>
+                <small data-ko="케이팝" data-en="케이팝">케이팝</small>
+              </span>
+            </label>
+            <label class="option-label">
+              <input type="radio" name="topic" value="memes">
+              <span class="option-text">
+                <span class="option-emoji">😂</span>
+                <span data-ko="Korean Memes" data-en="Korean Memes">Korean Memes</span>
+                <small data-ko="한국 밈" data-en="한국 밈">한국 밈</small>
+              </span>
+            </label>
+            <label class="option-label">
+              <input type="radio" name="topic" value="festivals">
+              <span class="option-text">
+                <span class="option-emoji">🎉</span>
+                <span data-ko="Festivals" data-en="Festivals">Festivals</span>
+                <small data-ko="축제" data-en="축제">축제</small>
+              </span>
+            </label>
+            <label class="option-label">
+              <input type="radio" name="topic" value="traditions">
+              <span class="option-text">
+                <span class="option-emoji">🏯</span>
+                <span data-ko="Traditions" data-en="Traditions">Traditions</span>
+                <small data-ko="전통" data-en="전통">전통</small>
+              </span>
+            </label>
+            <label class="option-label">
+              <input type="radio" name="topic" value="daily">
+              <span class="option-text">
+                <span class="option-emoji">☕</span>
+                <span data-ko="Daily Life" data-en="Daily Life">Daily Life</span>
+                <small data-ko="일상" data-en="일상">일상</small>
+              </span>
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>
+            <h2 data-ko="톤 (Tone)" data-en="Tone (톤)">톤 (Tone)</h2>
+          </legend>
+          <div class="option-group" id="tone-selection" role="radiogroup" aria-labelledby="tone-heading">
+            <label class="option-label">
+              <input type="radio" name="tone" value="friendly" checked>
+              <span class="option-text">
+                <span data-ko="Friendly" data-en="Friendly">Friendly</span>
+                <small data-ko="친근한" data-en="친근한">친근한</small>
+              </span>
+            </label>
+            <label class="option-label">
+              <input type="radio" name="tone" value="informative">
+              <span class="option-text">
+                <span data-ko="Informative" data-en="Informative">Informative</span>
+                <small data-ko="정보성" data-en="정보성">정보성</small>
+              </span>
+            </label>
+            <label class="option-label">
+              <input type="radio" name="tone" value="humorous">
+              <span class="option-text">
+                <span data-ko="Humorous" data-en="Humorous">Humorous</span>
+                <small data-ko="유머러스" data-en="유머러스">유머러스</small>
+              </span>
+            </label>
+            <label class="option-label">
+              <input type="radio" name="tone" value="inspirational">
+              <span class="option-text">
+                <span data-ko="Inspirational" data-en="Inspirational">Inspirational</span>
+                <small data-ko="영감형" data-en="영감형">영감형</small>
+              </span>
+            </label>
+          </div>
+        </fieldset>
+
+        <section class="ai-settings">
+          <h2 data-ko="AI 설정 (Optional)" data-en="AI Settings (Optional)">AI 설정 (Optional)</h2>
+          <div class="ai-info">
+            <p data-ko="OpenAI API 키를 입력하면 실제 AI로 생성됩니다. (브라우저에만 저장 — 보안 주의)" data-en="Enter OpenAI API key to use real AI. (Stored only in browser — use with caution)">
+              OpenAI API 키를 입력하면 실제 AI로 생성됩니다. (브라우저에만 저장 — 보안 주의)
+            </p>
+            <div class="api-input-group">
+              <input id="api-key" type="password" placeholder="sk-..." />
+              <button type="button" id="toggle-key-visibility" class="icon-btn" aria-label="Toggle visibility">
+                <span class="eye-icon">👁️</span>
+              </button>
+            </div>
+            <small class="helper" data-ko="키를 입력하지 않으면 내장 샘플 텍스트로 대체됩니다." data-en="Without a key, built-in sample texts will be used.">
+              키를 입력하지 않으면 내장 샘플 텍스트로 대체됩니다.
+            </small>
+          </div>
+        </section>
+
+        <button type="submit" id="generate-btn" class="primary-button">
+          <span data-ko="✨ Generate / 생성하기" data-en="✨ Generate / 생성하기">✨ Generate / 생성하기</span>
+        </button>
+      </form>
+
+      <section id="result-container" class="hidden">
+        <h2 data-ko="생성 결과 (Generated)" data-en="Generated (생성 결과)">생성 결과 (Generated)</h2>
+        
+        <div class="result-block">
+          <label>
+            <span class="label-flag">🇰🇷</span>
+            <span data-ko="한국어 (Korean)" data-en="Korean (한국어)">한국어 (Korean)</span>
+          </label>
+          <textarea id="ko-output" readonly></textarea>
+        </div>
+
+        <div class="result-block">
+          <label>
+            <span class="label-flag">🇬🇧</span>
+            <span data-ko="English (영어)" data-en="English (영어)">English (영어)</span>
+          </label>
+          <textarea id="en-output" readonly></textarea>
+        </div>
+
+        <div class="result-block small">
+          <label>
+            <span class="label-flag">💡</span>
+            <span data-ko="간단 설명 (Brief)" data-en="Brief (간단 설명)">간단 설명 (Brief)</span>
+          </label>
+          <textarea id="brief-output" readonly></textarea>
+        </div>
+
+        <div class="action-buttons">
+          <button id="copy-btn" class="action-btn">
+            <span data-ko="📋 Copy All" data-en="📋 Copy All">📋 Copy All</span>
+          </button>
+          <button id="copy-ko-btn" class="action-btn">
+            <span data-ko="🇰🇷 Copy KR" data-en="🇰🇷 Copy KR">🇰🇷 Copy KR</span>
+          </button>
+          <button id="copy-en-btn" class="action-btn">
+            <span data-ko="🇬🇧 Copy EN" data-en="🇬🇧 Copy EN">🇬🇧 Copy EN</span>
+          </button>
+          <button id="regenerate-btn" class="action-btn primary">
+            <span data-ko="🔄 Regenerate" data-en="🔄 Regenerate">🔄 Regenerate</span>
+          </button>
+          <button id="clear-key-btn" class="action-btn">
+            <span data-ko="🔑 Clear Key" data-en="🔑 Clear Key">🔑 Clear Key</span>
+          </button>
+        </div>
+
+        <div id="status" class="status" role="status" aria-live="polite" aria-atomic="true"></div>
+      </section>
+
+      <section class="notes">
+        <h3 data-ko="📌 배포 관련 안내" data-en="📌 Deployment Notes">📌 배포 관련 안내</h3>
+        <ul>
+          <li data-ko="GitHub Pages에 바로 배포 가능합니다 (Settings → Pages에서 브랜치 선택)" data-en="Deploy directly to GitHub Pages (Settings → Pages, select branch)">
+            GitHub Pages에 바로 배포 가능합니다 (Settings → Pages에서 브랜치 선택)
+          </li>
+          <li data-ko="⚠️ 브라우저에서 API 키 사용은 노출 위험이 있습니다" data-en="⚠️ Using API keys in browser has exposure risks">
+            ⚠️ 브라우저에서 API 키 사용은 노출 위험이 있습니다
+          </li>
+          <li data-ko="권장: Netlify/Vercel 서버리스 함수로 키 보호 (예제 포함)" data-en="Recommended: Use Netlify/Vercel serverless functions to protect keys (examples included)">
+            권장: Netlify/Vercel 서버리스 함수로 키 보호 (예제 포함)
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <footer>
+      <small data-ko="Made for sharing K-culture worldwide 🌍" data-en="Made for sharing K-culture worldwide 🌍">
+        Made for sharing K-culture worldwide 🌍
+      </small>
+    </footer>
+  </div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>

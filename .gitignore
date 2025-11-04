@@ -1,0 +1,17 @@
+# Environment variables
+.env
+.env.local
+
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+.netlify/
+.vercel/
+
+# macOS
+.DS_Store
+
+# Logs
+*.log

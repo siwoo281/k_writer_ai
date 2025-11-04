@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta http-equiv="Content-Security-Policy" 
+        content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self';">
+  <title>K-Culture AI Writer — AI-Powered Korean Culture Content Generator</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="AI-powered tool for generating bilingual Korean-English social media posts about K-culture, K-pop, Korean food, memes, and traditions. Created by Choi Si-woo at Pai Chai University.">
+  <meta name="keywords" content="K-pop, Korean culture, AI writer, bilingual content, Korean food, K-culture, social media, content generator, tourism, Pai Chai University">
+  <meta name="author" content="Choi Si-woo, Department of Tourism Management, Pai Chai University">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="K-Culture AI Writer">
+  <meta property="og:description" content="Generate bilingual posts about Korean culture with AI technology">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:locale:alternate" content="en_US">
+  
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="K-Culture AI Writer">
+  <meta name="twitter:description" content="AI-powered Korean culture content generator">
+  
+  <!-- PWA -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#0077b6">
+  <link rel="apple-touch-icon" href="/icon-192.png">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" as="style">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet"></noscript>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --primary-blue: #0077b6;
+      --secondary-blue: #0096c7;
+      --light-blue: #e0f7fa;
+      --dark-teal: #005f73;
+      --white: #ffffff;
+      --text-dark: #111;
+      --text-gray: #667;
+    }
+
+    body {
+      font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #0077b6 0%, #0096c7 50%, #00b4d8 100%);
+      color: var(--white);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Animated background shapes */
+    .bg-shape {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.1;
+      animation: float 20s infinite ease-in-out;
+    }
+
+    .shape-1 {
+      width: 300px;
+      height: 300px;
+      background: white;
+      top: 10%;
+      left: 10%;
+      animation-delay: 0s;
+    }
+
+    .shape-2 {
+      width: 200px;
+      height: 200px;
+      background: white;
+      bottom: 20%;
+      right: 15%;
+      animation-delay: 5s;
+    }
+
+    .shape-3 {
+      width: 150px;
+      height: 150px;
+      background: white;
+      top: 60%;
+      left: 5%;
+      animation-delay: 10s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) translateX(0); }
+      25% { transform: translateY(-30px) translateX(20px); }
+      50% { transform: translateY(-60px) translateX(-20px); }
+      75% { transform: translateY(-30px) translateX(20px); }
+    }
+
+    .landing-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Creator Banner */
+    .creator-banner {
+      margin-bottom: 40px;
+      animation: fadeInDown 0.8s ease;
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .creator-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 20px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      padding: 20px 35px;
+      border-radius: 20px;
+      border: 3px solid rgba(255, 224, 102, 0.8);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+      transition: all 0.3s ease;
+    }
+
+    .creator-badge:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+      border-color: rgba(255, 224, 102, 1);
+    }
+
+    .badge-icon {
+      font-size: 56px;
+      animation: wave 2s infinite;
+    }
+
+    @keyframes wave {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(-10deg); }
+      75% { transform: rotate(10deg); }
+    }
+
+    .badge-content {
+      text-align: left;
+      color: var(--text-dark);
+    }
+
+    .badge-title {
+      font-size: 14px;
+      color: var(--text-gray);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 5px;
+    }
+
+    .badge-name {
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--primary-blue);
+      margin-bottom: 5px;
+      line-height: 1.2;
+    }
+
+    .badge-details {
+      font-size: 16px;
+      color: var(--text-gray);
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .badge-school {
+      font-size: 15px;
+      color: var(--dark-teal);
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    .hero-section {
+      margin-bottom: 60px;
+      animation: fadeInUp 0.8s ease;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .logo {
+      font-size: 72px;
+      margin-bottom: 20px;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    h1 {
+      font-size: 56px;
+      font-weight: 900;
+      margin-bottom: 20px;
+      text-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .subtitle {
+      font-size: 24px;
+      opacity: 0.95;
+      margin-bottom: 40px;
+      line-height: 1.6;
+    }
+
+    .subtitle-ko {
+      font-size: 20px;
+      opacity: 0.85;
+      display: block;
+      margin-top: 8px;
+    }
+
+    .cta-button {
+      display: inline-block;
+      padding: 20px 50px;
+      font-size: 22px;
+      font-weight: 700;
+      background: white;
+      color: var(--primary-blue);
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .cta-button:hover {
+      transform: translateY(-5px) scale(1.1);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+      animation: none;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin: 60px 0;
+      animation: fadeIn 1s ease 0.3s both;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .feature-card {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      padding: 30px;
+      border-radius: 20px;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+      background: rgba(255, 255, 255, 0.25);
+      border-color: rgba(255, 255, 255, 0.4);
+    }
+
+    .feature-icon {
+      font-size: 48px;
+      margin-bottom: 15px;
+    }
+
+    .feature-card h3 {
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+
+    .feature-card p {
+      font-size: 16px;
+      opacity: 0.9;
+      line-height: 1.5;
+      margin-bottom: 8px;
+    }
+
+    .feature-card small {
+      font-size: 14px;
+      opacity: 0.75;
+      display: block;
+      font-style: italic;
+    }
+
+    .tech-stack {
+      margin: 60px 0;
+      padding: 40px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .tech-stack h2 {
+      font-size: 32px;
+      margin-bottom: 30px;
+    }
+
+    .tech-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .tech-badge {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-size: 16px;
+      font-weight: 600;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .tech-badge:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.1);
+    }
+
+    .project-info {
+      margin-top: 40px;
+      padding: 30px;
+      background: rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .project-info h3 {
+      font-size: 24px;
+      margin-bottom: 15px;
+      color: #ffe066;
+    }
+
+    .project-info p {
+      font-size: 18px;
+      line-height: 1.8;
+      margin-bottom: 10px;
+    }
+
+    .creator-info {
+      font-size: 20px;
+      font-weight: 700;
+      margin-top: 20px;
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      border: 2px solid rgba(255, 224, 102, 0.3);
+    }
+
+    .university {
+      color: #ffe066;
+      font-weight: 900;
+    }
+
+    footer {
+      margin-top: 60px;
+      padding-top: 30px;
+      border-top: 2px solid rgba(255, 255, 255, 0.2);
+      opacity: 0.8;
+    }
+
+    footer p {
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 36px;
+      }
+
+      .subtitle {
+        font-size: 18px;
+      }
+
+      .logo {
+        font-size: 48px;
+      }
+
+      .cta-button {
+        padding: 16px 40px;
+        font-size: 18px;
+      }
+
+      .features {
+        grid-template-columns: 1fr;
+      }
+
+      .tech-stack h2 {
+        font-size: 24px;
+      }
+
+      .project-info h3 {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Background shapes -->
+  <div class="bg-shape shape-1"></div>
+  <div class="bg-shape shape-2"></div>
+  <div class="bg-shape shape-3"></div>
+
+  <div class="landing-container">
+    <!-- Creator Info Banner -->
+    <div class="creator-banner">
+      <div class="creator-badge">
+        <div class="badge-icon" role="img" aria-label="Developer emoji">👨‍💻</div>
+        <div class="badge-content">
+          <div class="badge-title">Created by</div>
+          <div class="badge-name">Choi Si-woo (최시우)</div>
+          <div class="badge-details">Student ID: 2084046</div>
+          <div class="badge-school">Department of Tourism Management<br>Pai Chai University (배재대학교)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero-section">
+      <div class="logo" role="img" aria-label="Korean flag and sparkles emoji">🇰🇷✨</div>
+      <h1>K-Culture AI Writer</h1>
+      <p class="subtitle">
+        AI-powered tool for spreading Korean culture worldwide<br>
+        <span class="subtitle-ko">한국 문화를 세계에 알리는 AI 글쓰기 도구</span>
+      </p>
+      <a href="home.html" class="cta-button" role="button">
+        <span role="img" aria-label="Rocket emoji">🚀</span> Get Started / 시작하기
+      </a>
+    </div>
+
+    <!-- Features -->
+    <div class="features">
+      <div class="feature-card">
+        <div class="feature-icon">🌐</div>
+        <h3>Multilingual Support</h3>
+        <p>Generate content in Korean and English simultaneously</p>
+        <small>한국어와 영어로 동시에 콘텐츠 생성</small>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🤖</div>
+        <h3>AI-Powered Generation</h3>
+        <p>Natural writing using OpenAI GPT technology</p>
+        <small>OpenAI GPT를 활용한 자연스러운 글쓰기</small>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎨</div>
+        <h3>Various Tones</h3>
+        <p>Choose from friendly, informative, humorous, or inspirational</p>
+        <small>친근한, 정보성, 유머러스, 영감형 선택 가능</small>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📱</div>
+        <h3>SNS Optimized</h3>
+        <p>Ready-to-use format for social media platforms</p>
+        <small>소셜 미디어에 바로 사용 가능한 포맷</small>
+      </div>
+    </div>
+
+    <!-- Tech Stack -->
+    <div class="tech-stack">
+      <h2>🛠️ Tech Stack / 기술 스택</h2>
+      <div class="tech-grid">
+        <div class="tech-badge">HTML5</div>
+        <div class="tech-badge">CSS3</div>
+        <div class="tech-badge">JavaScript (ES6+)</div>
+        <div class="tech-badge">OpenAI API</div>
+        <div class="tech-badge">GPT-3.5-turbo</div>
+        <div class="tech-badge">Netlify Functions</div>
+        <div class="tech-badge">Vercel Serverless</div>
+        <div class="tech-badge">GitHub Pages</div>
+        <div class="tech-badge">Responsive Design</div>
+        <div class="tech-badge">i18n (Internationalization)</div>
+      </div>
+
+      <div class="project-info">
+        <h3>📚 Project Information</h3>
+        <p><strong>Course:</strong> Tourism Content Creator Practice</p>
+        <p><strong>Professor:</strong> Prof. Ralph Cousins</p>
+        <p><strong>Objective:</strong> Develop an automated SNS content generation tool to effectively introduce Korean culture (food, K-pop, memes, festivals, etc.) to international audiences</p>
+        <p class="objective-ko"><strong>프로젝트 목표:</strong> 한국 문화(음식, K-pop, 밈, 축제 등)를 외국인에게 효과적으로 소개하는 SNS 콘텐츠 자동 생성 도구 개발</p>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <p>
+        Made with  for sharing K-culture worldwide 🌍<br>
+        © 2025 K-Culture AI Writer | Pai Chai University (배재대학교)
+      </p>
+    </footer>
+  </div>
+</body>
+</html>
